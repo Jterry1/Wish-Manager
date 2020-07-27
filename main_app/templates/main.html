@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href='/logout'>Log Out</a>
+    <h1>Hello {{request.session.user_first_name}}!</h1>
+    <a href='/wishes/new'>Make a wish!</a>
+    <p>Your wish list:</p>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Date added</th>
+            <th>Actions</th>
+        </tr>
+        {% for wish in wishes %}
+            <tr>
+                <td>{{wish.name}}</td>
+                <td>{{wish.created_at}}</td>
+                <td><a href='/wishes/delete/{{wish.id}}'>Remove</a> | <a href='/wishes/edit/{{wish.id}}'>Edit</a> | <a href='/wishes/granted/{{wish.id}}'>Granted</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p>Granted wishes:</p>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Wisher</th>
+            <th>Date added</th>
+            <th>Date granted</th>
+        </tr>
+        {% for granted in granteds %}
+            <tr>
+                <td>{{granted.name}}</td>
+                <td>{{granted.wished_by.first_name}}</td>
+                <td>{{granted.og_created_at}}</td>
+                <td>{{granted.created_at}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

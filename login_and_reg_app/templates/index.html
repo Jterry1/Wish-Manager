@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Index</title>
+</head>
+
+<body>
+    <div id='wrapper'>
+        <div id='register'>
+            <h1>Registration</h1>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <form action='/create_user' method='POST'>
+                {% csrf_token %}
+                    First Name <input type='text' name='first_name'><br><br>
+                    Last Name <input type='text' name='last_name'><br><br>
+                    Email <input type='email' name='email'><br><br>
+                    Password <input type='password' name='password'><br><br>
+                    Confirm PW <input type='password' name='confirm_pw'><br><br>
+                    <input type='submit' value='Register'><br><br>
+            </form><br><br>
+        </div>
+        <div id='login'>
+            <h1>Login</h1>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <form action='/login' method='POST'>
+                {% csrf_token %}
+                Email <input type='text' name='email'><br><br>
+                Password <input type='password' name='password'><br><br>
+                <input type='submit' value='Login'><br><br>
+            </form><br><br>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href='/logout'>Log Out</a>
+    <h1>Hello {{request.session.user_first_name}}! Make a wish!</h1>
+    {% if messages %}
+    <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+    <form action='/wishes/new/create_wish' method='POST'>
+        {% csrf_token %}
+        <p>I wish for: <input type='text' name='name'></p>
+        <p>Description: <input type='text' name='description'></p>
+        <a href='/wishes'>Cancel</a>
+        <input type='submit' value='Submit'>
+    </form>
+</body>
+
+</html>
